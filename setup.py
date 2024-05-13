@@ -1,16 +1,14 @@
 '''Setup'''
 from setuptools import setup, find_packages
 
-VERSION = '0.0.3'
-DESCRIPTION = 'Compress algorithms'
 LONG_DESCRIPTION = 'A package that allows to compress different types of data using different algorithms such as LZW, LZ78, Deflate, Huffman'
 
 setup(
     name="dalgorithms",
-    version=VERSION,
+    version="0.1.0",
     author="UCUgllekk",
     author_email="pavlosiuk.pn@ucu.edu.ua",
-    description=DESCRIPTION,
+    description='Compress algorithms',
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(where="algorithms"),

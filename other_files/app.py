@@ -52,10 +52,6 @@ class CompressionProgramGUI:
                                         font=('Fira Code', '12'))
         self.algorithm_label.pack()
 
-        # self.button = tk.Button(self.root,
-        #                         text="Compress File",
-        #                         state="disabled",
-        #                         font=('Fira Code', '12'))
         self.button_frame = tk.Frame(self.root)
         self.button_frame.pack()
 
