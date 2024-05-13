@@ -102,7 +102,7 @@ class CompressionProgramGUI:
 
         elif self.algorithm_var.get() == 'deflate':
             compression_algorithm = Deflate()
-            compressed_file_path, _ = compression_algorithm.compress(file_path)
+            compressed_file_path = compression_algorithm.compress(file_path)
 
         self.compressed_file_label.pack()
         self.compressed_file_label.config(text="Compressed file path:")

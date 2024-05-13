@@ -45,7 +45,7 @@ class LZW:
         with open(path, 'rb') as file:
             data = file.read()
         encoded_data = LZW.encoding(data)
-        file_path = path + '.' + LZW.name.lower()
+        file_path = path + '.' + LZW.name
         with open(file_path, 'wb') as file:
             for value in encoded_data:
                 file.write(value.to_bytes(3, byteorder='little'))

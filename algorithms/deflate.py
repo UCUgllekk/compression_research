@@ -55,10 +55,11 @@ class Deflate:
         with open(file_path, 'rb') as file:
             data = file.read()
         compressed_data = self.deflate(data)
-        compressed_file_path = file_path + '.deflate'
+        compressed_file_path = file_path + f'.{self.name}'
         with open(compressed_file_path, 'wb') as file:
             pickle.dump(compressed_data[1], file)
             file.write(self.dict_to_bytes(compressed_data[0]))
+        return compressed_file_path
 
     def decompress(self, compressed_file_path: str) -> str:
         with open(compressed_file_path, 'rb') as file:
@@ -70,3 +71,4 @@ class Deflate:
         decoded_text = self.huffman.decode(huffman_encoded, huffman_dict)
         with open(out_file_name, 'wb') as output_file:
             output_file.write(decoded_text)
+        return out_file_name
