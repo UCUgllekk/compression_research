@@ -1,4 +1,5 @@
 '''Huffman algorithm implementation'''
+import os
 class Node:
     """
     Class Node for Huffman and LZ77 algorithms.
@@ -90,11 +91,12 @@ class HuffmanCompression:
         """
         decoded_str = bytearray()
         coding_dict = {i : j for j, i in coding_dict.items()}
-        while code:
-            for cd in coding_dict:
-                if code.startswith(cd):
-                    decoded_str += bytes([coding_dict[cd]])
-                    code = code[len(cd):]
+        buffer = ''
+        for bit in code:
+            buffer += bit
+            if buffer in coding_dict:
+                decoded_str += bytes([coding_dict[buffer]])
+                buffer = ''
         return decoded_str
 
     def add_fictious_bins(self, bin_str: str) -> str:
@@ -119,6 +121,29 @@ class HuffmanCompression:
         bin_str = bin_str[8:]
         return bin_str[:-1 * fict_info]
 
+    def dict_to_bytes(self, dictt: dict):
+        """
+        Converts dicts to bytes
+        """
+        keys = bytes(dictt.keys())
+        values = bytes(':'.join(dictt.values()), encoding='utf-8')
+        data = keys + b'separ' + values + b'end'
+        return data
+
+    def dict_from_bytes(self, data: bytes):
+        """
+        Converts dict(expressed by bytes) to dict
+        """
+        data = data.split(b'separ')
+        keys = list(data[0])
+        values = list(data[1].decode('utf-8').split(':'))
+        reconstructed_dict = {}
+        for i in range(len(keys)):
+            key = keys[i]
+            value = values[i]
+            reconstructed_dict[key] = value
+        return reconstructed_dict
+
     def compress(self, path: str) -> None:
         """
         Compresses files, uses encode func to generate
@@ -127,30 +152,34 @@ class HuffmanCompression:
         with open(path, 'rb') as file:
             image = file.read()
         encoded_data, encoded_dict = self.encode(image)
-        file_type = path[len(path)-3:]
         encoded_data = self.add_fictious_bins(encoded_data)
         b = bytearray()
         for i in range(0, len(encoded_data), 8):
             byte = encoded_data[i:i+8]
             b.append(int(byte, 2))
-        with open((path:=path[:-3]+self.name.lower()), 'wb') as file:
+        new_path = f'{path}.{self.name}'
+        with open(new_path, 'wb') as file:
+            file.write(self.dict_to_bytes(encoded_dict))
             file.write(bytes(b))
-        return path, encoded_dict, file_type
+        return new_path
 
-    def decompress(self, file_mix: tuple[str, dict, str]) -> None:
+    def decompress(self, file: tuple[str, dict, str]) -> None:
         """
         Removes fictious bits and decompresses files.
         """
-        output_path = file_mix[0][:-4] + '_decoded.' + file_mix[2]
-        with open(file_mix[0], 'rb') as file:
+        o_u = os.path.splitext(file)
+        f_f = os.path.splitext(o_u[0])
+        output_path = f_f[0] + '_decoded' + f_f[1]
+        with open(file, 'rb') as file:
+            file = file.read()
+            encoded_dict = file[:file.index(b'end')]
+            file = file[file.index(b'end')+3:]
+            encoded_dict = self.dict_from_bytes(encoded_dict)
             bit_str = ''
-            byte = file.read(1)
-            while len(byte) > 0:
-                byte = ord(byte)
+            for byte in file:
                 bits = bin(byte)[2:].rjust(8, '0')
                 bit_str += bits
-                byte = file.read(1)
             bit_str = self.remove_fictious(bit_str)
-            decompr = self.decode(bit_str, file_mix[1])
+            decompr = self.decode(bit_str, encoded_dict)
         with open(output_path, 'wb') as writte:
             writte.write(bytes(decompr))
