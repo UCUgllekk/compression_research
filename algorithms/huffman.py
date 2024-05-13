@@ -31,12 +31,12 @@ class HuffmanCompression:
     Class for compression and decompression, uses
     Huffman algorithm.
     """
+    name = 'huff'
     def __init__(self) -> None:
         """
         Initializes dict of symbols and name of algorithm
         """
         self.main_dict = {}
-        self.name = 'huff'
 
     def generate_code(self, node: 'Node', coding: str) -> None:
         """
