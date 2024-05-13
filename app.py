@@ -2,7 +2,8 @@
 import tkinter as tk
 from tkinter import filedialog
 from threading import Thread
-from algorithms import HuffmanCompression, LZW
+from huffman import HuffmanCompression
+from lzw import LZW
 import os
 
 class CompressionProgramGUI:
