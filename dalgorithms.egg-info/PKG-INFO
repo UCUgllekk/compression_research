@@ -1,7 +1,8 @@
 Metadata-Version: 2.1
 Name: dalgorithms
-Version: 0.0.2
+Version: 0.0.3
 Summary: Compress algorithms
+Home-page: https://github.com/UCUgllekk/compression_research
 Author: UCUgllekk
 Author-email: pavlosiuk.pn@ucu.edu.ua
 Keywords: python,compress,compression,algorithm,lz78,lzw,huffman,deflate
@@ -11,7 +12,10 @@ Classifier: Programming Language :: Python :: 3
 Classifier: Operating System :: Unix
 Classifier: Operating System :: MacOS :: MacOS X
 Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.11
 Description-Content-Type: text/markdown
-Requires-Dist: tk==0.1.0
+Requires-Dist: tk>=0.1.0
+Provides-Extra: dev
+Requires-Dist: twine>=4.0.2; extra == "dev"
 
 A package that allows to compress different types of data using different algorithms such as LZW, LZ78, Deflate, Huffman

@@ -1,8 +1,8 @@
 README.md
 setup.py
-compress_algorithms/__init__.py
-compress_algorithms/huffman.py
-compress_algorithms/lzw.py
+algorithms/__init__.py
+algorithms/huffman.py
+algorithms/lzw.py
 dalgorithms.egg-info/PKG-INFO
 dalgorithms.egg-info/SOURCES.txt
 dalgorithms.egg-info/dependency_links.txt

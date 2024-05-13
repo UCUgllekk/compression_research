@@ -2,9 +2,10 @@
 import tkinter as tk
 from tkinter import filedialog
 from threading import Thread
-from huffman import HuffmanCompression
-from lzw import LZW
 import os
+import sys
+sys.path.insert(0, '/home/gllekk/all_the_code/default/DISCRETE/compression_research')
+from algorithms import LZW, HuffmanCompression
 
 class CompressionProgramGUI:
     '''Compression app'''
