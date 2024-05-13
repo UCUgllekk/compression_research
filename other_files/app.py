@@ -113,8 +113,8 @@ class CompressionProgramGUI:
         compressed_size = round(os.path.getsize(compressed_file_path) / 1024,2)
         compression_percentage = 100 * (original_size - compressed_size) / original_size
 
-        self.size_label.config(text=f"Original file size: {original_size} kb\
-\nCompressed file size: {compressed_size} kb\nCompression percentage: {compression_percentage:.2f}%")
+        self.size_label.config(text=f"Original file size: {original_size} kb\n\
+Compressed file size: {compressed_size} kb\nCompression percentage: {compression_percentage:.2f}%")
 
     def start(self):
         '''Open app'''
