@@ -63,3 +63,4 @@ class LZW:
         file_path = '.'.join([file_path[1][::-1] + "_decoded", file_path[0][::-1]])
         with open(file_path, 'wb') as file:
             file.write(decoded)
+        return file_path

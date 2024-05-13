@@ -183,3 +183,4 @@ class HuffmanCompression:
             decompr = self.decode(bit_str, encoded_dict)
         with open(output_path, 'wb') as writte:
             writte.write(bytes(decompr))
+        return output_path
