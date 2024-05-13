@@ -82,11 +82,11 @@ class CompressionProgramGUI:
         '''Compress'''
         if self.algorithm_var.get() == 'huffman':
             compression_algorithm = HuffmanCompression()
-            compressed_file_path, _, _ = compression_algorithm.compress(file_path)
+            compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'lzw':
             compression_algorithm = LZW()
-            compressed_file_path, _ = compression_algorithm.compress(file_path)
+            compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'lz78':
             compression_algorithm = LZ78()
