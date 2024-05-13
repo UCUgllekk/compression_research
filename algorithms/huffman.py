@@ -36,7 +36,7 @@ class HuffmanCompression:
         Initializes dict of symbols and name of algorithm
         """
         self.main_dict = {}
-        self.name = 'huffm'
+        self.name = 'huff'
 
     def generate_code(self, node: 'Node', coding: str) -> None:
         """

@@ -5,14 +5,14 @@ from threading import Thread
 import os
 import sys
 sys.path.insert(0, '/home/gllekk/all_the_code/default/DISCRETE/compression_research')
-from algorithms import LZW, HuffmanCompression
+from algorithms import LZW, HuffmanCompression, LZ77, LZ78, Deflate
 
 class CompressionProgramGUI:
     '''Compression app'''
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Compression App")
-        self.root.geometry("600x400")
+        self.root.geometry("800x300")
         self.root.resizable(False, False)
 
         self.app_label = tk.Label(self.root, text="Choose an algorithm for compression",
@@ -28,17 +28,21 @@ class CompressionProgramGUI:
         self.menu.add_radiobutton(label="Huffman", variable=self.algorithm_var,
                                   value="huffman", command=self.update_algorithm_text_field,
                                   font=('Fira Code', '10'))
+
         self.menu.add_radiobutton(label="LZW", variable=self.algorithm_var,
                                 value="lzw", command=self.update_algorithm_text_field,
                                 font=('Fira Code', '10'))
+
+        self.menu.add_radiobutton(label="LZ77", variable=self.algorithm_var,
+                                value="lz78", command=self.update_algorithm_text_field,
+                                font=('Fira Code', '10'))
+
         self.menu.add_radiobutton(label="LZ78", variable=self.algorithm_var,
                                 value="lz77", command=self.update_algorithm_text_field,
                                 font=('Fira Code', '10'))
+
         self.menu.add_radiobutton(label="Deflate", variable=self.algorithm_var,
                                 value="deflate", command=self.update_algorithm_text_field,
-                                font=('Fira Code', '10'))
-        self.menu.add_radiobutton(label="Other", variable=self.algorithm_var,
-                                value="other",
                                 font=('Fira Code', '10'))
 
         self.menu_button["menu"] = self.menu
@@ -58,8 +62,8 @@ class CompressionProgramGUI:
                                               font=('Fira Code', '12'))
 
         self.compressed_file_path_label = tk.Entry(self.root,
-                                                   font=('Fira Code', '12'),
-                                                   width=50,
+                                                   font=('Fira Code', '10'),
+                                                   width=97,
                                                    state="disabled")
 
         self.size_label = tk.Label(self.root, text="", font=('Fira Code', '10'))
@@ -88,16 +92,16 @@ class CompressionProgramGUI:
             compression_algorithm = LZW()
             compressed_file_path = compression_algorithm.compress(file_path)
 
+        elif self.algorithm_var.get() == 'lz77':
+            compression_algorithm = LZ77()
+            compressed_file_path, _ = compression_algorithm.compress(file_path)
+
         elif self.algorithm_var.get() == 'lz78':
             compression_algorithm = LZ78()
             compressed_file_path, _ = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'deflate':
             compression_algorithm = Deflate()
-            compressed_file_path, _ = compression_algorithm.compress(file_path)
-
-        elif self.algorithm_var.get() == 'other':
-            compression_algorithm = Other()
             compressed_file_path, _ = compression_algorithm.compress(file_path)
 
         self.compressed_file_label.pack()
