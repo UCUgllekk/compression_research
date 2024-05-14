@@ -116,7 +116,7 @@ class CompressionProgramGUI:
             compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'deflate':
-            compression_algorithm = Deflate(256)
+            compression_algorithm = Deflate(5)
             compressed_file_path = compression_algorithm.compress(file_path)
 
         self.compressed_file_label.pack()
@@ -147,14 +147,14 @@ Compressed file size: {compressed_size} kb\nCompression percentage: {compression
 
         elif self.algorithm_var.get() == 'lz77':
             compression_algorithm = LZ77(5)
-            decompressed_file_path, _ = compression_algorithm.decompress(file_path)
+            decompressed_file_path = compression_algorithm.decompress(file_path)
 
         elif self.algorithm_var.get() == 'lz78':
             compression_algorithm = LZ78()
-            decompressed_file_path, _ = compression_algorithm.decompress(file_path)
+            decompressed_file_path = compression_algorithm.decompress(file_path)
 
         elif self.algorithm_var.get() == 'deflate':
-            compression_algorithm = Deflate(256)
+            compression_algorithm = Deflate(5)
             decompressed_file_path = compression_algorithm.decompress(file_path)
 
         self.compressed_file_label.pack()

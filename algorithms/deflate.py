@@ -1,7 +1,8 @@
-"""Deflate algorithm implementation"""
-import pickle
+"""Deflate, algorithm implementation"""
 from .lz77 import LZ77
 from .huffman import HuffmanCompression
+import pickle
+
 class Deflate:
     '''Deflate'''
     name = 'deflate'
