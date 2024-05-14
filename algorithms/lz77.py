@@ -1,4 +1,5 @@
 """LZ77 algorithm implementation"""
+import pickle
 class Node:
     """
     Class Node for Huffman and LZ77 algorithms.
@@ -57,7 +58,7 @@ class LZ77:
 
         return best_match
 
-    def encode_string(self, data: str) -> list[Node]:
+    def encode(self, data: str) -> list[Node]:
         result = []
         cur_ind = 0
         while cur_ind < len(data):
@@ -70,7 +71,7 @@ class LZ77:
                 cur_ind += match.length
         return result
 
-    def decode_string(self, code: list[Node]) -> str:
+    def decode(self, code: list[Node]) -> str:
         result = []
         decoded_data = ""
         for node in code:
@@ -82,3 +83,22 @@ class LZ77:
                     result.append(result[-node.offset])
                     decoded_data += result[-node.offset]
         return decoded_data
+
+    def compress(self, path: str):
+        with open(path, 'r') as file:
+            data = file.read()
+        compressed_data = self.encode(data)
+        file_path = path + f'.{self.name}'
+        with open(file_path, 'wb') as file:
+            pickle.dump(compressed_data, file)
+        return file_path
+
+    def decompress(self, path: str):
+        with open(path, 'rb') as file:
+            compressed_data = pickle.load(file)
+        decompressed_data = self.decode(compressed_data)
+        file_path = path[:-4][::-1].split('.', maxsplit=1)
+        file_path = '.'.join([file_path[1][::-1] + "_decoded", file_path[0][::-1]])
+        with open(file_path, 'w') as file:
+            file.write(decompressed_data)
+        return file_path

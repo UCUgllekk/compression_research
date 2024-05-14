@@ -56,13 +56,13 @@ class HuffmanCompression:
         """
         frequency = self.frequency(text)
         nodes = []
-        for (char, freq) in frequency:
-            nodes.append(Node(freq=freq, char=char))
+        for [char, freq] in frequency:
+            nodes.append(Node(freq, char))
         while len(nodes) > 1:
             first_lowest = nodes[0]
             second_lowest = nodes[1]
             min_freq = nodes.pop(0).freq + nodes.pop(0).freq
-            new_node = Node(freq=min_freq)
+            new_node = Node(min_freq)
             new_node.left_child = first_lowest
             new_node.right_child = second_lowest
             nodes.append(new_node)
@@ -77,13 +77,13 @@ class HuffmanCompression:
         """
         Function that helps calculate the frequency of all symbols
         """
-        freq = {}
-        for char in text:
-            if char not in freq:
-                freq[char] = 1
-            else:
-                freq[char] += 1
-        return sorted(freq.items(), key= lambda x: x[1])
+        unique_symbols = set(text)
+        len_text = len(text)
+        symbols_and_freqs = []
+        for sym in unique_symbols:
+            symbols_and_freqs.append([sym, text.count(sym) / len_text])
+        symbols_and_freqs = sorted(symbols_and_freqs, key=lambda el: el[1])
+        return symbols_and_freqs
 
     def decode(self, code: str, coding_dict: dict[bytes, str]) -> bytes:
         """
@@ -106,7 +106,7 @@ class HuffmanCompression:
         byte representaion of nums of added bits, so that
         correct number will be removed in decompression
         """
-        fictious = 8 - len(bin_str) % 8
+        fictious = (8 - len(bin_str) % 8)
         for i in range(fictious):
             bin_str += '0'
         fictious_info_secret = "{0:08b}".format(fictious)
@@ -158,8 +158,9 @@ class HuffmanCompression:
             byte = encoded_data[i:i+8]
             b.append(int(byte, 2))
         new_path = f'{path}.{self.name}'
+        dict_to_byte = self.dict_to_bytes(encoded_dict)
         with open(new_path, 'wb') as file:
-            file.write(self.dict_to_bytes(encoded_dict))
+            file.write(dict_to_byte)
             file.write(bytes(b))
         return new_path
 

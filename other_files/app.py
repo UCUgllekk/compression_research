@@ -32,11 +32,11 @@ class CompressionProgramGUI:
                                 font=('Fira Code', '10'))
 
         self.menu.add_radiobutton(label="LZ77", variable=self.algorithm_var,
-                                value="lz78", command=self.update_algorithm_text_field,
+                                value="lz77", command=self.update_algorithm_text_field,
                                 font=('Fira Code', '10'))
 
         self.menu.add_radiobutton(label="LZ78", variable=self.algorithm_var,
-                                value="lz77", command=self.update_algorithm_text_field,
+                                value="lz78", command=self.update_algorithm_text_field,
                                 font=('Fira Code', '10'))
 
         self.menu.add_radiobutton(label="Deflate", variable=self.algorithm_var,
@@ -108,12 +108,12 @@ class CompressionProgramGUI:
             compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'lz77':
-            compression_algorithm = LZ77(5)
-            compressed_file_path, _ = compression_algorithm.compress(file_path)
+            compression_algorithm = LZ77(256)
+            compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'lz78':
             compression_algorithm = LZ78()
-            compressed_file_path, _ = compression_algorithm.compress(file_path)
+            compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'deflate':
             compression_algorithm = Deflate(256)
@@ -146,7 +146,7 @@ Compressed file size: {compressed_size} kb\nCompression percentage: {compression
             decompressed_file_path = compression_algorithm.decompress(file_path)
 
         elif self.algorithm_var.get() == 'lz77':
-            compression_algorithm = LZ77()
+            compression_algorithm = LZ77(5)
             decompressed_file_path, _ = compression_algorithm.decompress(file_path)
 
         elif self.algorithm_var.get() == 'lz78':

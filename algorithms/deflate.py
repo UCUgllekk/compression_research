@@ -28,7 +28,7 @@ class Deflate:
 
     def deflate(self, text: str) -> bytes:
         huffman_encoded, huffman_dict = self.huffman.encode(text)
-        lz77_nodes = self.lz77.encode_string(huffman_encoded)
+        lz77_nodes = self.lz77.encode(huffman_encoded)
         combined_data = huffman_dict, lz77_nodes
         return combined_data
 
@@ -47,7 +47,7 @@ class Deflate:
 
     def inflate(self, compressed_data: bytes) -> str:
         huffman_dict, lz77_nodes = compressed_data
-        huffman_encoded = self.lz77.decode_string(lz77_nodes)
+        huffman_encoded = self.lz77.decode(lz77_nodes)
         decoded_text = self.huff_decode(huffman_encoded, huffman_dict)
         return decoded_text
 
@@ -67,7 +67,7 @@ class Deflate:
             compressed_dict = self.dict_from_bytes(file.readline().rstrip())
         out_file_name = compressed_file_path.replace('.deflate', '')
         huffman_dict = compressed_dict
-        huffman_encoded = self.lz77.decode_string(compressed_lz77_nodes)
+        huffman_encoded = self.lz77.decode(compressed_lz77_nodes)
         decoded_text = self.huffman.decode(huffman_encoded, huffman_dict)
         with open(out_file_name, 'wb') as output_file:
             output_file.write(decoded_text)
