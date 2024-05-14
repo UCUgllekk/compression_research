@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 from threading import Thread
 import os
-from algorithms import LZW, HuffmanCompression, LZ77, LZ78, Deflate
+from algorithms import LZW, HuffmanCompression, LZ78, Deflate, LZ77
 
 class CompressionProgramGUI:
     '''Compression app'''
@@ -109,6 +109,7 @@ class CompressionProgramGUI:
 
         elif self.algorithm_var.get() == 'lz77':
             compression_algorithm = LZ77(256)
+            print(LZ77(5))
             compressed_file_path = compression_algorithm.compress(file_path)
 
         elif self.algorithm_var.get() == 'lz78':
