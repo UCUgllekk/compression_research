@@ -45,21 +45,22 @@ class LZW:
         with open(path, 'rb') as file:
             data = file.read()
         encoded_data = LZW.encoding(data)
-        file_type = path.split('.')[-1]
-        file_path = '.'.join(path.split('.')[:-1])+'.'+ LZW.name.lower()
+        file_path = path + '.' + LZW.name
         with open(file_path, 'wb') as file:
             for value in encoded_data:
                 file.write(value.to_bytes(3, byteorder='little'))
-        return file_path, file_type
+        return file_path
 
     @staticmethod
-    def decompress(path:str, file_type:str):
+    def decompress(path:str):
         '''Read, decode, write to file'''
         with open(path, 'rb') as file:
             encoded_data = []
             while (byte := file.read(3)):
                 encoded_data.append(int.from_bytes(byte, byteorder='little'))
         decoded = LZW.decoding(encoded_data)
-        file_path = '.'.join(path.split('.')[:-1])+'_decoded.'+ file_type
+        file_path = path[:-4][::-1].split('.', maxsplit=1)
+        file_path = '.'.join([file_path[1][::-1] + "_decoded", file_path[0][::-1]])
         with open(file_path, 'wb') as file:
             file.write(decoded)
+        return file_path

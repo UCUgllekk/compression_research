@@ -5,13 +5,13 @@ LONG_DESCRIPTION = 'A package that allows to compress different types of data us
 
 setup(
     name="dalgorithms",
-    version="0.1.0",
+    version="0.1.2",
     author="UCUgllekk",
     author_email="pavlosiuk.pn@ucu.edu.ua",
     description='Compress algorithms',
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
-    packages=find_packages(where="algorithms"),
+    packages=find_packages(),2
     url="https://github.com/UCUgllekk/compression_research",
     install_requires=["tk>=0.1.0"],
     extras_require={
