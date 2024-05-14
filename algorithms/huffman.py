@@ -1,5 +1,6 @@
 '''Huffman algorithm implementation'''
 import os
+import pickle
 class Node:
     """
     Class Node for Huffman and LZ77 algorithms.
@@ -185,3 +186,81 @@ class HuffmanCompression:
         with open(output_path, 'wb') as writte:
             writte.write(bytes(decompr))
         return output_path
+
+class LZ77:
+    '''LZ77'''
+    name = 'lz77'
+    def __init__(self, buffer_size: int):
+        self.buffer_size = buffer_size
+
+    def find_best_match(self, cur_ind: int, data: str) -> Node:
+        buffer = data[max(0, cur_ind - self.buffer_size):cur_ind]
+        if data[cur_ind] not in buffer:
+            return Node(freq=0, char=data[cur_ind])
+
+        possib = [ind for ind, elem in enumerate(buffer) if elem == data[cur_ind]]
+        possib = [cur_ind - len(buffer) + elem for elem in possib]
+
+        best_match = Node(freq=0, char=data[cur_ind])
+        for offset in possib:
+            length = 0
+            while cur_ind + length < len(data) and data[cur_ind + length] == data[offset + length]:
+                length += 1
+                if len(buffer) == self.buffer_size:
+                    buffer = buffer[1:] + data[cur_ind + length - 1]
+                else:
+                    buffer += data[cur_ind + length - 1]
+
+            if cur_ind + length == len(data):
+                char = data[-1]
+                best_match = Node(freq=length + 1, offset=offset, next_byte=char) if char == data[offset + length - 1] else Node(freq=length, offset=offset, next_byte=char)
+                break
+            elif length >= best_match.length:
+                best_match = Node(freq=length, offset=offset, next_byte=data[cur_ind + length])
+
+        return best_match
+
+    def encode(self, data: str) -> list[Node]:
+        result = []
+        cur_ind = 0
+        while cur_ind < len(data):
+            match = self.find_best_match(cur_ind, data)
+            if match is None or match.length == 0:
+                result.append(Node(freq=1, char=data[cur_ind]))
+                cur_ind += 1
+            else:
+                result.append(match)
+                cur_ind += match.length
+        return result
+
+    def decode(self, code: list[Node]) -> str:
+        result = []
+        decoded_data = ""
+        for node in code:
+            if node.char is not None:
+                result.append(node.char)
+                decoded_data += node.char
+            else:
+                for _ in range(node.length):
+                    result.append(result[-node.offset])
+                    decoded_data += result[-node.offset]
+        return decoded_data
+
+    def compress(self, path: str):
+        with open(path, 'r') as file:
+            data = file.read()
+        compressed_data = self.encode(data)
+        file_path = path + f'.{self.name}'
+        with open(file_path, 'wb') as file:
+            pickle.dump(compressed_data, file)
+        return file_path
+
+    def decompress(self, path: str):
+        with open(path, 'rb') as file:
+            compressed_data = pickle.load(file)
+        decompressed_data = self.decode(compressed_data)
+        file_path = path[:-4][::-1].split('.', maxsplit=1)
+        file_path = '.'.join([file_path[1][::-1] + "_decoded", file_path[0][::-1]])
+        with open(file_path, 'w') as file:
+            file.write(decompressed_data)
+        return file_path
