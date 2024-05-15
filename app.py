@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 from threading import Thread
 import os
-from algorithms import LZW, HuffmanCompression, LZ78, Deflate, LZ77
+from di_compression import LZW, HuffmanCompression, LZ78, Deflate, LZ77
 
 class CompressionProgramGUI:
     '''Compression app'''

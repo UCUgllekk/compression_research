@@ -1,0 +1,13 @@
+README.md
+setup.py
+algorithms/__init__.py
+algorithms/deflate.py
+algorithms/huffman.py
+algorithms/lz77.py
+algorithms/lz78.py
+algorithms/lzw.py
+di_compression.egg-info/PKG-INFO
+di_compression.egg-info/SOURCES.txt
+di_compression.egg-info/dependency_links.txt
+di_compression.egg-info/requires.txt
+di_compression.egg-info/top_level.txt
