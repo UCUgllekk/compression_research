@@ -3,7 +3,6 @@ certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
 cryptography==42.0.7
-dalgorithms @ file:///home/gllekk/all_the_code/default/DISCRETE/compression_research/dist/dalgorithms-0.1.0-py3-none-any.whl#sha256=79c4c2be5289369c916dbdb1167b04051c7e8492a20f0c6e19d58353bf57207a
 docutils==0.21.2
 idna==3.7
 importlib_metadata==7.1.0

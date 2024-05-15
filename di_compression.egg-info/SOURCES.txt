@@ -1,7 +1,0 @@
-README.md
-setup.py
-di_compression.egg-info/PKG-INFO
-di_compression.egg-info/SOURCES.txt
-di_compression.egg-info/dependency_links.txt
-di_compression.egg-info/requires.txt
-di_compression.egg-info/top_level.txt
