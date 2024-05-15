@@ -3,7 +3,9 @@ certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
 cryptography==42.0.7
+di-compression==0.0.4
 docutils==0.21.2
+e==1.4.5
 idna==3.7
 importlib_metadata==7.1.0
 jaraco.classes==3.4.0
