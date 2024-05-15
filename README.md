@@ -1,6 +1,10 @@
 # compression_research
 ## INSTALL
 ```pip install di_compression```
+## USAGE
+```import di_compression```
+or
+```from di_compression import ...```
 ## HUFFMAN:
 Клас Huffman_Compression надає функції для стиснення та розпакування файлів за допомогою алгоритму кодування Хаффмана. Кодування Хаффмана - широко використовуваний алгоритм стиснення даних без втрат.
 
