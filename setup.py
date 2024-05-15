@@ -5,7 +5,7 @@ LONG_DESCRIPTION = 'A package that allows to compress different types of data us
 
 setup(
     name="di-compression",
-    version="0.0.4",
+    version="0.1.0",
     author="UCUgllekk",
     author_email="pavlosiuk.pn@ucu.edu.ua",
     description='Compress algorithms',
